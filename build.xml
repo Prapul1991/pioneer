@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="Dashboard" basedir="." default="build-war">
+
+	<target name="clean" description="Delete all generated files">
+		<delete dir="build/Classes" failonerror="false" />
+		<delete file="build/${ant.project.name}.war" />
+	</target>
+
+	<target name="compile" description="Compiles the Task" depends="clean">
+		<mkdir dir="build/Classes" />
+		<javac srcdir="src" destdir="build/Classes">
+			<classpath>
+				<fileset dir="WebContent\WEB-INF\lib">
+					<include name="**/*.jar" />
+				</fileset>
+			</classpath>
+		</javac>
+	</target>
+
+	<target name="build-war" depends="compile">
+		<war destfile="build/${ant.project.name}.war" webxml="WebContent\WEB-INF\web.xml">
+			<fileset dir="WebContent">
+				<include name="**/*.*" />
+			</fileset>
+		</war>
+	</target>
+</project>
